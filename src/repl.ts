@@ -1,12 +1,7 @@
 import * as readline from "node:readline";
+import { CLICommand } from "./command.js";
 import { commandExit } from "./command_exit.js";
 import { commandHelp } from "./command_help.js";
-
-export type CLICommand = {
-  name: string;
-  description: string;
-  callback: (commands: Record<string, CLICommand>) => void;
-};
 
 export function getCommands(): Record<string, CLICommand> {
   return {
@@ -51,14 +46,13 @@ async function handleLine(input: string) {
   }
   const cleanedInput = cleanInput(input);
   const commandName = cleanedInput[0];
-  console.log("Your command was:", cleanedInput[0]);
+  // console.log("Your command was:", cleanedInput[0]);
   const commands = getCommands();
   if (commands[commandName]) {
-    console.log("found in getCommands");
-    console.log(commands[commandName].description);
+    // console.log("found in getCommands");
+    // console.log(commands[commandName].description);
     try {
       commands[commandName].callback(commands);
-      throw new Error("Something went wrong");
     } catch (err) {
       console.error(err);
     }
