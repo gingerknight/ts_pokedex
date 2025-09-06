@@ -1,4 +1,28 @@
 import * as readline from "node:readline";
+import { commandExit } from "./command_exit.js";
+import { commandHelp } from "./command_help.js";
+
+export type CLICommand = {
+  name: string;
+  description: string;
+  callback: (commands: Record<string, CLICommand>) => void;
+};
+
+export function getCommands(): Record<string, CLICommand> {
+  return {
+    exit: {
+      name: "exit",
+      description: "Exits the pokedex",
+      callback: commandExit,
+    },
+    help: {
+      name: "help",
+      description: "Displays a help message",
+      callback: commandHelp,
+    },
+    // can add more commands here
+  };
+}
 
 export function cleanInput(input: string): string[] {
   // Split on whitespace, then filter on truthy values (drop whitespace)
@@ -6,17 +30,19 @@ export function cleanInput(input: string): string[] {
   const values: string[] = lowerInput.split(" ").filter((val) => val);
   return values;
 }
+
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
   prompt: "(╯°□°)╯︵◓ >>",
 });
+
 export function startREPL() {
   rl.prompt();
   rl.on("line", handleLine);
 }
 
-function handleLine(input: string) {
+async function handleLine(input: string) {
   // define the callback inline instead of seperate func definition
   // console.log("We got an input capt: ", input);
   if (!input) {
@@ -24,6 +50,21 @@ function handleLine(input: string) {
     rl.prompt();
   }
   const cleanedInput = cleanInput(input);
+  const commandName = cleanedInput[0];
   console.log("Your command was:", cleanedInput[0]);
-  rl.prompt();
+  const commands = getCommands();
+  if (commands[commandName]) {
+    console.log("found in getCommands");
+    console.log(commands[commandName].description);
+    try {
+      commands[commandName].callback(commands);
+      throw new Error("Something went wrong");
+    } catch (err) {
+      console.error(err);
+    }
+    rl.prompt();
+  } else {
+    console.log("Unknown command");
+    rl.prompt();
+  }
 }
