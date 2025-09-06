@@ -6,22 +6,24 @@ export function cleanInput(input: string): string[] {
   const values: string[] = lowerInput.split(" ").filter((val) => val);
   return values;
 }
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+  prompt: "(╯°□°)╯︵◓ >>",
+});
 export function startREPL() {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-    prompt: "(╯°□°)╯︵◓ >>",
-  });
   rl.prompt();
-  rl.on("line", (input) => {
-    // define the callback inline instead of seperate func definition
-    // console.log("We got an input capt: ", input);
-    if (!input) {
-      // empty input
-      rl.prompt();
-    }
-    const cleanedInput = cleanInput(input);
-    console.log("Your command was:", cleanedInput[0]);
+  rl.on("line", handleLine);
+}
+
+function handleLine(input: string) {
+  // define the callback inline instead of seperate func definition
+  // console.log("We got an input capt: ", input);
+  if (!input) {
+    // empty input
     rl.prompt();
-  });
+  }
+  const cleanedInput = cleanInput(input);
+  console.log("Your command was:", cleanedInput[0]);
+  rl.prompt();
 }
