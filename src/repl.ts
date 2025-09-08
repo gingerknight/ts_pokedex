@@ -1,5 +1,4 @@
-import * as readline from "node:readline";
-import { CLICommand } from "./command.js";
+import { CLICommand, initState, State } from "./state.js";
 import { commandExit } from "./command_exit.js";
 import { commandHelp } from "./command_help.js";
 
@@ -26,15 +25,12 @@ export function cleanInput(input: string): string[] {
   return values;
 }
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-  prompt: "(╯°□°)╯︵◓ >>",
-});
+// Initialize State { readling, commands }
+const replState = initState();
 
 export function startREPL() {
-  rl.prompt();
-  rl.on("line", handleLine);
+  replState.rl.prompt();
+  replState.rl.on("line", handleLine);
 }
 
 async function handleLine(input: string) {
@@ -42,23 +38,21 @@ async function handleLine(input: string) {
   // console.log("We got an input capt: ", input);
   if (!input) {
     // empty input
-    rl.prompt();
+    replState.rl.prompt();
   }
   const cleanedInput = cleanInput(input);
   const commandName = cleanedInput[0];
   // console.log("Your command was:", cleanedInput[0]);
-  const commands = getCommands();
-  if (commands[commandName]) {
+  if (replState.commands[commandName]) {
     // console.log("found in getCommands");
     // console.log(commands[commandName].description);
     try {
-      commands[commandName].callback(commands);
+      replState.commands[commandName].callback(replState);
     } catch (err) {
       console.error(err);
     }
-    rl.prompt();
   } else {
     console.log("Unknown command");
-    rl.prompt();
   }
+  replState.rl.prompt();
 }
