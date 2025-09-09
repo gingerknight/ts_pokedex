@@ -1,6 +1,6 @@
-import { CLICommand, State } from "./state.js";
+import { State } from "./state.js";
 
-export function commandHelp(replState: State) {
+export async function commandHelp(replState: State) {
   //console.log("help man");
   console.log("Welcome to the Pokedex!");
   console.log("Usage:\n");

@@ -1,22 +1,4 @@
-import { CLICommand, initState, State } from "./state.js";
-import { commandExit } from "./command_exit.js";
-import { commandHelp } from "./command_help.js";
-
-export function getCommands(): Record<string, CLICommand> {
-  return {
-    exit: {
-      name: "exit",
-      description: "Exits the pokedex",
-      callback: commandExit,
-    },
-    help: {
-      name: "help",
-      description: "Displays a help message",
-      callback: commandHelp,
-    },
-    // can add more commands here
-  };
-}
+import { initState, State } from "./state.js";
 
 export function cleanInput(input: string): string[] {
   // Split on whitespace, then filter on truthy values (drop whitespace)
@@ -47,7 +29,7 @@ async function handleLine(input: string) {
     // console.log("found in getCommands");
     // console.log(commands[commandName].description);
     try {
-      replState.commands[commandName].callback(replState);
+      await replState.commands[commandName].callback(replState);
     } catch (err) {
       console.error(err);
     }
