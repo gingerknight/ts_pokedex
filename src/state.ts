@@ -12,6 +12,8 @@ export type State = {
   rl: Interface;
   commands: Record<string, CLICommand>;
   pokeApi: PokeAPI;
+  nextUrl: string;
+  prevUrl: string;
 };
 
 export function initState(): State {
@@ -28,5 +30,11 @@ export function initState(): State {
 
   const pokeApi = new PokeAPI();
 
-  return { rl, commands, pokeApi };
+  return {
+    rl,
+    commands,
+    pokeApi,
+    nextUrl: "",
+    prevUrl: "",
+  };
 }
