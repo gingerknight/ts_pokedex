@@ -1,37 +1,54 @@
+import { Cache } from "./pokeCache.js";
+
 export class PokeAPI {
   private static readonly baseURL = "https://pokeapi.co/api/v2";
+  private cache: Cache;
 
-  constructor() {}
+  constructor() {
+    this.cache = new Cache(10000);
+  }
+
+  closeCache() {
+    this.cache.stopReapLoop();
+  }
 
   async fetchLocations(pageURL?: string): Promise<ShallowLocations> {
-    // implment this
-    // this is the pagination part
-    // https://pokeapi.co/api/v2/location-area/
-    /* {
-        "count": 1089,
-        "next": "https://pokeapi.co/api/v2/location-area/?offset=20&limit=20",
-        "previous": null,
-        "results": [
-          {
-            "name": "canalave-city-area",
-            "url": "https://pokeapi.co/api/v2/location-area/1/"
-          },
-        }
-    */
     const url = pageURL || `${PokeAPI.baseURL}/location-area/`;
+
+    // check cache
+    const cached = this.cache.get<ShallowLocations>(url);
+    if (cached) {
+      return cached;
+    }
+
+    // go fish
     const response: Response = await fetch(url, {
       method: "GET",
     });
     const data = (await response.json()) as ShallowLocations;
     //console.log("data:", data);
+
+    //store in cache
+    this.cache.add(url, data);
     return data;
   }
   async fetchLocation(locationName: string): Promise<Location> {
     const url = `${PokeAPI.baseURL}/location-area/${locationName}`;
+
+    // check cache
+    const cached = this.cache.get<Location>(url);
+    if (cached) {
+      return cached;
+    }
+
     const response: Response = await fetch(url, {
       method: "GET",
     });
     const data = (await response.json()) as Location;
+
+    //store in cache
+    this.cache.add(url, data);
+
     return data;
   }
 }

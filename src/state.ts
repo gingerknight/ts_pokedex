@@ -17,9 +17,6 @@ export type State = {
 };
 
 export function initState(): State {
-  //create rl with createInterface();
-  //create commands with getCommands()
-  //return { rl, commands }
   const rl = createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -27,7 +24,6 @@ export function initState(): State {
   });
 
   const commands = getCommands();
-
   const pokeApi = new PokeAPI();
 
   return {

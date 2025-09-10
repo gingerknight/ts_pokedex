@@ -1,4 +1,4 @@
-import { cleanInput } from "./repl";
+import { cleanInput } from "../repl";
 import { describe, expect, test } from "vitest";
 
 describe.each([
@@ -21,7 +21,7 @@ describe.each([
     const actual = cleanInput(input);
     // The `expect` and `toHaveLength` functions are from vitest
     // they will fail the test if the condition is not met
-    console.log(actual);
+    //console.log(actual);
     expect(actual).toHaveLength(expected.length);
     for (const i in expected) {
       // likewise, the `toBe` function will fail the test if the values are not equal

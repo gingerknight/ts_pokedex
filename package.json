@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "vitest --run",
+    "test": "vitest --reporter=verbose",
     "coverage": "vitest run --coverage",
-    "test:watch": "vitest --watch",
+    "test:watch": "vitest --watch --reporter=dot",
     "build": "npx tsc",
     "start": "node dist/main.js",
     "dev": "npx tsc && node dist/main.js",
