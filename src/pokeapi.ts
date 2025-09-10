@@ -34,18 +34,15 @@ export class PokeAPI {
   }
   async fetchLocation(locationName: string): Promise<Location> {
     const url = `${PokeAPI.baseURL}/location-area/${locationName}`;
-
     // check cache
     const cached = this.cache.get<Location>(url);
     if (cached) {
       return cached;
     }
-
     const response: Response = await fetch(url, {
       method: "GET",
     });
     const data = (await response.json()) as Location;
-
     //store in cache
     this.cache.add(url, data);
 
@@ -66,9 +63,6 @@ export type Result = {
 };
 
 export type Location = {
-  id: number;
-  name: string;
-  game_index: number;
   encounter_method_rates: {
     encounter_method: {
       name: string;
@@ -82,38 +76,41 @@ export type Location = {
       };
     }[];
   }[];
+  game_index: number;
+  id: number;
   location: {
     name: string;
     url: string;
   };
+  name: string;
   names: {
-    name: string;
     language: {
       name: string;
       url: string;
     };
+    name: string;
   }[];
   pokemon_encounters: {
     pokemon: {
       name: string;
       url: string;
     };
-    version_details2: {
-      version: {
-        name: string;
-        url: string;
-      };
-      max_chance: number;
+    version_details: {
       encounter_details: {
-        min_level: number;
-        max_level: number;
-        condition_values: any[];
         chance: number;
+        condition_values: any[];
+        max_level: number;
         method: {
           name: string;
           url: string;
         };
+        min_level: number;
       }[];
+      max_chance: number;
+      version: {
+        name: string;
+        url: string;
+      };
     }[];
-  };
+  }[];
 };

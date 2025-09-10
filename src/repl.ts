@@ -29,7 +29,7 @@ async function handleLine(input: string) {
     // console.log("found in getCommands");
     // console.log(commands[commandName].description);
     try {
-      await replState.commands[commandName].callback(replState);
+      await replState.commands[commandName].callback(replState, ...cleanedInput.slice(1));
     } catch (err) {
       console.error(err);
     }
