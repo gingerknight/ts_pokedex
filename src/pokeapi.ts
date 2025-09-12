@@ -1,4 +1,5 @@
 import { Cache } from "./pokeCache.js";
+import type { Pokemon } from "./types/pokemon_type.js";
 
 export class PokeAPI {
   private static readonly baseURL = "https://pokeapi.co/api/v2";
@@ -46,6 +47,26 @@ export class PokeAPI {
     //store in cache
     this.cache.add(url, data);
 
+    return data;
+  }
+
+  async fetchPokemon(pokemon: string): Promise<Pokemon> {
+    const url = `${PokeAPI.baseURL}/pokemon/${pokemon}`;
+
+    // check cache
+    const cached = this.cache.get<Pokemon>(url);
+    if (cached) {
+      return cached;
+    }
+
+    // go fetch
+    const response: Response = await fetch(url, {
+      method: "GET",
+    });
+    const data = (await response.json()) as Pokemon;
+
+    // store in cache
+    this.cache.add(url, data);
     return data;
   }
 }
