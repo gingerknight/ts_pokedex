@@ -41,6 +41,7 @@ You will be greeted with a prompt like this:
 > Use `help` to get learn what commands are available
 
 There is now color and table formatting for the pokedex printout. 
+
 ![Colored Pokedex](./assets/pokedex_color.png)
 
 ### Project Structure
