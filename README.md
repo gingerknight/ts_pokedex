@@ -40,6 +40,9 @@ You will be greeted with a prompt like this:
 ```
 > Use `help` to get learn what commands are available
 
+There is now color and table formatting for the pokedex printout. 
+![Colored Pokedex](./assets/pokedex_color.png)
+
 ### Project Structure
 ```
 src/
@@ -67,7 +70,7 @@ npm run test
 ```
 
 ## Future Enhancements
-- Add rich temrinal enhancements like colors for pokemon types, and table formatting
+- ~~Add rich temrinal enhancements like colors for pokemon types, and table formatting~~
 - Package as global CLI (avilable via npm)
 - Simulate battles between pokemon
 - Add more unit tests
