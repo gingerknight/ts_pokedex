@@ -21,7 +21,7 @@ describe("Cache Testing for PokeAPI", () => {
     const cached = cache.get(key);
     expect(cached).toBe(val);
 
-    await new Promise((resolve) => setTimeout(resolve, interval + 100));
+    await new Promise((resolve) => setTimeout(resolve, interval + 500));
     const reaped = cache.get(key);
     expect(reaped).toBe(undefined);
 

@@ -6,11 +6,15 @@ ts_pokedex is a lightweight CLI REPL application that lets you explore Pokémon 
 
 - Interactive REPL: Enter commands like map <location-area> to list available Pokémon.
 - Pagination support: Navigate through paginated results (next, prev).
-- (SOON) Colorized output using chalk, highlighting Pokémon types in their signature colors.
+- Colorized output using chalk, highlighting Pokémon types in their signature colors.
 - Well-typed with TypeScript, keeping API calls and state management robust.
 - Test suite using Vitest, with mocked PokeAPI and CLI I/O.
 
+## Test Coverage
 
+| Statements                  | Branches                | Functions                 | Lines             |
+| --------------------------- | ----------------------- | ------------------------- | ----------------- |
+| ![Statements](https://img.shields.io/badge/statements-55.03%25-red.svg?style=flat) | ![Branches](https://img.shields.io/badge/branches-88.46%25-yellow.svg?style=flat) | ![Functions](https://img.shields.io/badge/functions-56.66%25-red.svg?style=flat) | ![Lines](https://img.shields.io/badge/lines-55.03%25-red.svg?style=flat) |
 
 ## Getting Started
 ### Prerequisites
@@ -75,7 +79,6 @@ npm run test
 - Package as global CLI (avilable via npm)
 - Simulate battles between pokemon
 - Add more unit tests
-- Refactor your code to organize it better and make it more testable
 - Keep pokemon in a "party" and allow them to level up
 - Allow for pokemon that are caught to evolve after a set amount of time
 - Persist a user's Pokedex to disk so they can save progress between sessions
