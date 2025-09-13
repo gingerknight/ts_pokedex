@@ -16,6 +16,11 @@ ts_pokedex is a lightweight CLI REPL application that lets you explore Pokémon 
 | --------------------------- | ----------------------- | ------------------------- | ----------------- |
 | ![Statements](https://img.shields.io/badge/statements-55.03%25-red.svg?style=flat) | ![Branches](https://img.shields.io/badge/branches-88.46%25-yellow.svg?style=flat) | ![Functions](https://img.shields.io/badge/functions-56.66%25-red.svg?style=flat) | ![Lines](https://img.shields.io/badge/lines-55.03%25-red.svg?style=flat) |
 
+
+<!-- coverage-badge:start -->
+<!-- coverage-badge:end -->
+
+
 ## Getting Started
 ### Prerequisites
 - Node.js (v18+ recommended)
